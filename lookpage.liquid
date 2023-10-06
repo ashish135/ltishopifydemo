@@ -1,0 +1,70 @@
+<div class="hero-image">
+<a href="{{ section.settings.link }}">{{ section.settings.joe_image | img_url: 'large' | img_tag }}</a>
+<div class="overflow-text">
+  <div class="overflow-tex-inner">
+    <h2> {{ section.settings.custom_text_title }} </h2>
+  <p>{{ section.settings.custom_text_body }}</p>
+  </div>
+</div>
+</div>
+<div class="container">
+  <h2 class="title" style="color: #000000;"> {{ section.settings.custom_text_title }} </h2>
+  <div class="card-container">
+  {% for product in collections.joe.products %}
+    <div class="card">
+     <h2>{{ product.title }}</h2>
+        <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.title }}" />
+        <p>{{ product.description }}</p>
+        <form class="myform" method="post" action="/cart/add">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+          <input type="submit" value="Add to cart" class="btn" />
+        </form>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Joe Artist Section",
+    "settings": [
+      {
+        "id": "custom_text_title",
+        "type": "text",
+        "label": "Text box heading",
+        "default": "Title"
+      },
+      {
+        "id": "custom_text_body",
+        "type": "richtext",
+        "label": "Add custom text below",
+        "default": "<p>Add your text here</p>"
+      },
+      {
+      "type": "url",
+      "id": "link",
+      "label": "Image Link"
+      },
+      {
+        "id": "joe_image",
+        "type": "image_picker",
+        "label": "Upload custom image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Joe Artist",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+
+
+{% endjavascript %}
